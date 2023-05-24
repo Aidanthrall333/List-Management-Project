@@ -26,7 +26,7 @@ app.all("*", (req,res) => {
 
 // Create a server
 const appName = "Simple List";
-const port = 5000;
+const port = 5001;
 app.listen(port, () => {
   console.log(`App ${appName} is running on port ${port}`);
 })
