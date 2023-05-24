@@ -10,7 +10,18 @@ app.get('/api', async (req,res) =>{
     res.send(await fm.ReadData());
 })
 app.post('/api', async (req,res) =>{
-    await fm.WriteData(req.body);
+    if(Array.isArray(req)) {
+        await fm.ReplaceData(req);
+        console.log("delete")
+    }
+    else{
+        await fm.WriteData(req.body);
+        console.log("posted");
+    }
+    res.send(await fm.ReadData());
+})
+app.delete('/api', async (req,res) =>{
+    await fm.ReplaceData(req.body);
     res.send(await fm.ReadData());
 })
 app.all("*", (req,res) => {

@@ -43,7 +43,6 @@ let theList = [];
 window.addEventListener('DOMContentLoaded', async () => {
       /* Post Handler */
       document.getElementById('add').addEventListener('click', async (event)=> {
-        event.preventDefault(); // prevents page from refreshing
         const item = document.getElementById('listitem').value; // sets item to the inserted value
         try {
             const postData = { // contents that are to be added
@@ -56,23 +55,49 @@ window.addEventListener('DOMContentLoaded', async () => {
             // returns something if post doesn't work (TODO)
         }
       })
+
+      /* Delete Handler (TODO) */ 
+      document.getElementById('delete').addEventListener('click', async (event)=> {
+        event.preventDefault();
+        const item = document.getElementById('listitem').value; // sets item to the inserted value
+        try {
+            let newData = Delete(item);
+            await newLibrary.post("/api",postData);  // posts item to list.json 
+            ShowList(); 
+        }
+        catch (err) {
+            // returns something if post doesn't work (TODO)
+        }
+      })
 });
 
 async function GetList(){ // This will get the data from list.json 
     const listData = await newLibrary.get("/api"); // Fetches from list
     theList = listData; // Sets httpLibrary array to the data from json
+    if(Array.isArray(listData)){
+        theList = listData; 
+    } else {
+        console.log('listData is not an array');
+    }
     ShowList(); // Sends list to html
     return;
 }
 function ShowList() { // Will show array data on html 
-    let output = "<ul>";
+    let output = "<ol>";
     if (theList.length === 0)
         return;
     for (const item of theList){
-        output += `<li>${item}</li>`;
+        output += `<li>${item.body}</li>`;
     }
-    output += "</ul>"
-    document.getElementById("booksDisplay").innerHTML = output;
+    output += "</ol>"
+    document.getElementById("list").innerHTML = output;
+}
+async function Delete(toDelete){
+    const listData = await newLibrary.get("/api"); // Fetches from list
+    theList = listData; // Sets httpLibrary array to the data from json
+    delete theList[toDelete];
+    console.log(theList);
+    return theList;
 }
 GetList();
 
