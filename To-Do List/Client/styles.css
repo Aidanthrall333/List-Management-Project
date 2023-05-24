@@ -30,13 +30,31 @@ body{
 }
 .list-area{
     display: flex;
+    justify-content: center;
+}
+.list-header{
+    display:flex;
+    flex-direction: column;
+    
+    justify-content: center;
+    position: fixed;
+    padding:0;
+    margin: 0;
+    height: 40px;
+    color: #F7D6E0;
+    background-color: black;
 }
 .to-do-list{
+    display: flex;
+    flex-direction: column;
     text-align: center;
-    width: 50%;
+    margin: 5px;
+    width: 20%;
+    height: 600px;
+    overflow: auto;
+    border: 1px solid;
     background-color: white;
 }
-.completed-list{
-    background-color: black;
-    
+.list-content{
+    flex: 2;
 }
