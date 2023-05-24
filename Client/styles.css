@@ -1,0 +1,42 @@
+body{
+    background-color: #F7D6E0;
+
+}
+.title{
+    text-align: center;
+    color: #7bdff2;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+.form-area{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.elements-area{
+    display: flex;
+    flex-direction: row;
+}
+.text-input{
+    flex: 1;
+    margin-right: 10px;
+}
+.add-button{
+    flex: 2;
+    transition: background-color 0.3s ease;
+}
+.add-button:hover{
+    background-color: #b2f7ef
+
+}
+.list-area{
+    display: flex;
+}
+.to-do-list{
+    text-align: center;
+    width: 50%;
+    background-color: white;
+}
+.completed-list{
+    background-color: black;
+    
+}
