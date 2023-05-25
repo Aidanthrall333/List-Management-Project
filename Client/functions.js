@@ -61,8 +61,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         event.preventDefault();
         const item = document.getElementById('listitem').value; // sets item to the inserted value
         try {
-            let newData = Delete(item);
-            await newLibrary.post("/api",postData);  // posts item to list.json 
+            await newLibrary.delete("/api",item);  // posts item to list.json 
             ShowList(); 
         }
         catch (err) {
@@ -92,12 +91,6 @@ function ShowList() { // Will show array data on html
     output += "</ol>"
     document.getElementById("list").innerHTML = output;
 }
-async function Delete(toDelete){
-    const listData = await newLibrary.get("/api"); // Fetches from list
-    theList = listData; // Sets httpLibrary array to the data from json
-    delete theList[toDelete];
-    console.log(theList);
-    return theList;
-}
+
 GetList();
 
