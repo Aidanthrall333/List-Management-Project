@@ -15,13 +15,7 @@ async function ReadData(){
 async function WriteData(dataOut){
     try{
         await fs.access("./listdata.json", fs.constants.R_OK | fs.constants.W_OK);
-        const dataIn = await fs.readFile("./listdata.json", "utf-8");
-        let currentData = JSON.parse(dataIn);
-        if (!Array.isArray(currentData)) {
-            console.log("Is not an array");
-        }
-        currentData.push(dataOut);
-        await fs.writeFile("./listdata.json", JSON.stringify(currentData), "utf-8");
+        await fs.writeFile("./listdata.json", JSON.stringify(dataOut), "utf-8");
     }
     catch (error){
         console.log(error);

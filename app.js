@@ -10,18 +10,12 @@ app.get('/api', async (req,res) =>{
     res.send(await fm.ReadData());
 })
 app.post('/api', async (req,res) =>{
-    if(Array.isArray(req.body)) {
-        await fm.ReplaceData(req.body);
-        console.log("delete")
-    }
-    else{
-        await fm.WriteData(req.body);
-        console.log("posted");
-    }
-    res.send(await fm.ReadData());
+    await fm.WriteData(req.body);
+    console.log("posted");
 })
 app.delete('/api', async (req,res) =>{
-    let newData = Delete(req);
+    console.log("Deleted")
+    let newData = Delete(req.body);
     await fm.ReplaceData(newData);
     res.send(await fm.ReadData());
 })
@@ -30,7 +24,7 @@ app.all("*", (req,res) => {
 
 })
 async function Delete(toDelete){
-    const listData = await newLibrary.get("/api"); // Fetches from list
+    const listData = await fm.ReadData(); // Fetches from list
     theList = listData; // Sets httpLibrary array to the data from json
     delete theList[toDelete];
     console.log(theList);

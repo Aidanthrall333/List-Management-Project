@@ -45,10 +45,8 @@ window.addEventListener('DOMContentLoaded', async () => {
       document.getElementById('add').addEventListener('click', async (event)=> {
         const item = document.getElementById('listitem').value; // sets item to the inserted value
         try {
-            const postData = { // contents that are to be added
-                body: item,
-            }
-            await newLibrary.post("/api",postData);  // posts item to list.json 
+            theList.push(item);
+            await newLibrary.post("/api",theList);  // posts item to list.json 
             ShowList(); 
         }
         catch (err) {
@@ -56,12 +54,13 @@ window.addEventListener('DOMContentLoaded', async () => {
         }
       })
 
-      /* Delete Handler (TODO) */ 
+      /* Delete Handler */ 
       document.getElementById('delete').addEventListener('click', async (event)=> {
-        event.preventDefault();
         const item = document.getElementById('listitem').value; // sets item to the inserted value
         try {
-            await newLibrary.delete("/api",item);  // posts item to list.json 
+            console.log("deleting...")
+            theList.splice(item - 1, 1);
+            await newLibrary.post("/api", theList);
             ShowList(); 
         }
         catch (err) {
@@ -86,7 +85,7 @@ function ShowList() { // Will show array data on html
     if (theList.length === 0)
         return;
     for (const item of theList){
-        output += `<li>${item.body}</li>`;
+        output += `<li>${item}</li>`;
     }
     output += "</ol>"
     document.getElementById("list").innerHTML = output;
