@@ -39,7 +39,7 @@ class httpLibrary{
 
 const newLibrary = new httpLibrary();
 let theList = [];
-let theCList = [];
+let theCList = ["testing"];
 // Listener for the HTML buttons
 window.addEventListener('DOMContentLoaded', async () => {
       /* Post Handler */
@@ -63,11 +63,12 @@ window.addEventListener('DOMContentLoaded', async () => {
             console.log("deleting...")
             for(const target of theList) {
                 if(target === item){
+                    event.preventDefault();
                     let index = theList.indexOf(item);
                     theList.splice(index, 1);
+                    theCList.push(item);
                 }
             }
-            theCList.push(item);
             await newLibrary.post("/api", theList);
             ShowList();
             ShowCList();
