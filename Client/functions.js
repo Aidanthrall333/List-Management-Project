@@ -73,17 +73,9 @@ window.addEventListener('DOMContentLoaded', async () => {
         }
         try {
             console.log("deleting...")
-            for(const target of theList) {
-                if(target === item){
-                    event.preventDefault();
-                    let index = theList.indexOf(item);
-                    theList.splice(index, 1);
-                    theCList.push(item);
-                }
-            }
+            theList.splice(item - 1, 1);
             await newLibrary.post("/api", theList);
-            ShowList();
-            ShowCList();
+            ShowList(); 
         }
         catch (err) {
             // returns something if post doesn't work (TODO)
