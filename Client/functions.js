@@ -35,6 +35,23 @@ class httpLibrary{
             console.log(exception.toString());
         }
     }
+    /*async delete(location){
+        try{
+            const deleteMethod = {
+                method: 'DELETE',
+                headers: {
+                    "content-type": "application/json"
+                }
+            }
+            let response = await fetch(location, deleteMethod);
+            let deleteData = await response.json();
+            console.log(deleteData);
+            return deleteData;
+        }
+        catch(exception){
+            console.log(exception.toString());
+        }
+    }*/
 }
 
 const newLibrary = new httpLibrary();
@@ -62,8 +79,11 @@ window.addEventListener('DOMContentLoaded', async () => {
         const item = document.getElementById('listitem').value; // sets item to the inserted value
         try {
             let newData = Delete(item);
-            await newLibrary.post("/api",postData);  // posts item to list.json 
+            await newLibrary.post("/api",postData);
             ShowList(); 
+            
+           /*await newLibrary.delete("/api", newData);
+           ShowList();*/
         }
         catch (err) {
             // returns something if post doesn't work (TODO)
