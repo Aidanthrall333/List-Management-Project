@@ -45,6 +45,12 @@ window.addEventListener('DOMContentLoaded', async () => {
       /* Post Handler */
       document.getElementById('add').addEventListener('click', async (event)=> {
         const item = document.getElementById('listitem').value; // sets item to the inserted value
+        if(item == ""){
+            event.preventDefault();
+            document.getElementById("response").style.color = "red";
+            document.getElementById("response").innerHTML = `<p>Added element is empty </p>`
+            return;
+        }
         try {
             theList.push(item);
             await newLibrary.post("/api",theList);  // posts item to list.json 
@@ -59,6 +65,12 @@ window.addEventListener('DOMContentLoaded', async () => {
       /* Delete Handler */ 
       document.getElementById('delete').addEventListener('click', async (event)=> {
         const item = document.getElementById('listitem').value; // sets item to the inserted value
+        if(isNaN(item)|| item == 0 || item > theList.length){
+            event.preventDefault();
+            document.getElementById("response").style.color = "red";
+            document.getElementById("response").innerHTML = `<p>Enter valid list index </p>`
+            return;
+        }
         try {
             console.log("deleting...")
             for(const target of theList) {
