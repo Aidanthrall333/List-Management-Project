@@ -39,7 +39,7 @@ class httpLibrary{
 
 const newLibrary = new httpLibrary();
 let theList = [];
-let theCList = ["testing"];
+let theCList = [];
 // Listener for the HTML buttons
 window.addEventListener('DOMContentLoaded', async () => {
       /* Post Handler */
@@ -74,8 +74,11 @@ window.addEventListener('DOMContentLoaded', async () => {
         try {
             console.log("deleting...")
             theList.splice(item - 1, 1);
+            theCList.push(theList[item-1]);
             await newLibrary.post("/api", theList);
+            await newLibrary.post("/api", theCList);
             ShowList(); 
+            ShowCList();
         }
         catch (err) {
             // returns something if post doesn't work (TODO)

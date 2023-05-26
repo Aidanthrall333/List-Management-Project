@@ -3,8 +3,10 @@ const fs = require("fs/promises");
 async function ReadData(){
     try{
         await fs.access("./listdata.json", fs.constants.R_OK | fs.constants.W_OK);
+        await fs.access("./cData.json", fs.constants.R_OK | fs.constants.W_OK);
         const dataIn = await fs.readFile("./listdata.json","utf-8");
-        return JSON.parse(dataIn);
+        const cDataIn = await fs.readFile("./cData.json","utf-8");
+        return JSON.parse(dataIn), JSON.parse(cDataIn);
     }
     catch (error){
         console.log(error);
@@ -16,6 +18,9 @@ async function WriteData(dataOut){
     try{
         await fs.access("./listdata.json", fs.constants.R_OK | fs.constants.W_OK);
         await fs.writeFile("./listdata.json", JSON.stringify(dataOut), "utf-8");
+
+        await fs.access("./cData.json", fs.constants.R_OK | fs.constants.W_OK);
+        await fs.writeFile("./cData.json", JSON.stringify(dataOut), "utf-8");
     }
     catch (error){
         console.log(error);
@@ -24,11 +29,13 @@ async function WriteData(dataOut){
 }
 async function ReplaceData(dataOut){
     await fs.access("./listdata.json", fs.constants.R_OK | fs.constants.W_OK);
+    await fs.access("./cData.json", fs.constants.R_OK | fs.constants.W_OK);
     try{
         if (!Array.isArray(dataOut)) {
             console.log("Is not an array");
         }
         await fs.writeFile("./listdata.json", JSON.stringify(dataOut), "utf-8");
+        await fs.writeFile("./cData.json", JSON.stringify(dataOut), "utf-8");
     }
     catch (error){
         console.log(error);
