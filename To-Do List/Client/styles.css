@@ -33,21 +33,22 @@ body{
     justify-content: center;
 }
 .list-header{
-    display:flex;
+    display: flex;
+    flex-grow: 1;
     flex-direction: column;
-    
     justify-content: center;
     position: fixed;
     padding:0;
     margin: 0;
     height: 40px;
-    color: #F7D6E0;
-    background-color: black;
+    color: #7bdff2;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 .to-do-list{
     display: flex;
     flex-direction: column;
     text-align: center;
+    align-items: center;
     margin: 5px;
     width: 20%;
     height: 600px;
@@ -56,5 +57,6 @@ body{
     background-color: white;
 }
 .list-content{
-    flex: 2;
+    display: flex;
+    background-color: red;
 }
