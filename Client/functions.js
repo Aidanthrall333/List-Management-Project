@@ -35,27 +35,11 @@ class httpLibrary{
             console.log(exception.toString());
         }
     }
-    /*async delete(location){
-        try{
-            const deleteMethod = {
-                method: 'DELETE',
-                headers: {
-                    "content-type": "application/json"
-                }
-            }
-            let response = await fetch(location, deleteMethod);
-            let deleteData = await response.json();
-            console.log(deleteData);
-            return deleteData;
-        }
-        catch(exception){
-            console.log(exception.toString());
-        }
-    }*/
 }
 
 const newLibrary = new httpLibrary();
 let theList = [];
+let theCList = [];
 // Listener for the HTML buttons
 window.addEventListener('DOMContentLoaded', async () => {
       /* Post Handler */
@@ -65,6 +49,7 @@ window.addEventListener('DOMContentLoaded', async () => {
             theList.push(item);
             await newLibrary.post("/api",theList);  // posts item to list.json 
             ShowList(); 
+            ShowCList();
         }
         catch (err) {
             // returns something if post doesn't work (TODO)
@@ -76,12 +61,16 @@ window.addEventListener('DOMContentLoaded', async () => {
         const item = document.getElementById('listitem').value; // sets item to the inserted value
         try {
             console.log("deleting...")
-            theList.splice(item - 1, 1);
+            for(const target of theList) {
+                if(target === item){
+                    let index = theList.indexOf(item);
+                    theList.splice(index, 1);
+                }
+            }
+            theCList.push(item);
             await newLibrary.post("/api", theList);
-            ShowList(); 
-            
-           /*await newLibrary.delete("/api", newData);
-           ShowList();*/
+            ShowList();
+            ShowCList();
         }
         catch (err) {
             // returns something if post doesn't work (TODO)
@@ -98,6 +87,7 @@ async function GetList(){ // This will get the data from list.json
         console.log('listData is not an array');
     }
     ShowList(); // Sends list to html
+    ShowCList();
     return;
 }
 function ShowList() { // Will show array data on html 
@@ -108,7 +98,18 @@ function ShowList() { // Will show array data on html
         output += `<li>${item}</li>`;
     }
     output += "</ol>"
-    document.getElementById("list").innerHTML = output;
+    document.getElementById("todo-list").innerHTML = output;
+}
+
+function ShowCList() {
+    let output = "<ol>";
+    if (theCList.length === 0)
+        return;
+    for (const item of theCList){
+        output += `<li>${item}</li>`;
+    }
+    output += "</ol>"
+    document.getElementById("completed-list").innerHTML = output;
 }
 
 GetList();
