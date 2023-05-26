@@ -12,10 +12,12 @@ body{
 .page-title{
     text-align: center;
     font-family: Arial, sans-serif;
+    font-size: 50px;
     color: black;
 }
 .list-title{
     text-align: center;
+    font-size: 20px;
 }
 .form-area{
     display: flex;
